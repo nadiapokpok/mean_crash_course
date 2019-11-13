@@ -75,20 +75,24 @@ router
   .route ('/issues/update/:id')
   .post (upload.single ('file'), (req, res) => {
     Issue.findById (req.params.id, (err, issue, next) => {
+      let file = '';
+      if (req.file) {
+        file = req.file.filename;
+      }
       if (!issue) {
         return next (new ERROR ('Could not load document'));
       } else {
+        
         issue.title = req.body.title;
         issue.responsible = req.body.responsible;
-        issue.file = req.file.filename;
+        issue.file = file;
         issue.description = req.body.description;
         issue.severity = req.body.severity;
         issue.status = req.body.status;
         issue
           .save ()
           .then (issue => {
-            res.json ('update done');
-            res.redirect ('/list');
+            res.json('update done');
           })
           .catch (err => {
             res.status (400).send ('Update failed');
