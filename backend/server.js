@@ -5,10 +5,8 @@ const mongoose = require ('mongoose');
 const multer = require ('multer');
 const Issue = require ('./models/issue');
 
-
 const app = express ();
-app.use ('/', express.static (__dirname + '/public'));
-
+app.use(express.static('public'));
 
 
 //config multer

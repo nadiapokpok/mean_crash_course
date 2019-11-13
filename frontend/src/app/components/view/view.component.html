@@ -2,7 +2,7 @@
 <ul *ngFor="let issue of issues">
     <li>title: {{issue.title}}</li>
     <li>responsible: {{issue.responsible}}</li>
-    <li><img src="api/public/{{issue.file}}"[alt]="issue.name"></li>
+    <li><img src="api/{{issue.file}}"[alt]="issue.name"></li>
     
 </ul>
 <!--<mat-card class="example-card" *ngFor="let issue of issues">
