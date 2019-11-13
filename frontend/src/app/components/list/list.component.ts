@@ -32,6 +32,8 @@ export class ListComponent implements OnInit {
       .getIssues()
       .subscribe((data: Issue[]) => {
         this.issues = data;
+        console.log(data)
+        console.log('tutu');
         console.log('Data requested ...');
         console.log(this.issues);
       });

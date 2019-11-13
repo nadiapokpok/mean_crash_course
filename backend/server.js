@@ -50,11 +50,14 @@ router.route ('/issues/:id').get ((req, res) => {
 });
 
 router.route ('/issues/add').post (upload.single ('file'), (req, res) => {
-  console.log (req.file);
+  let file = '';
+  if (req.file)
+    file = req.file.filename;
+    
   let issue = new Issue ({
     title: req.body.title,
     responsible: req.body.responsible,
-    file: req.file.filename,
+    file: file,
     description: req.body.description,
     severity: req.body.severity,
     status: req.body.status,

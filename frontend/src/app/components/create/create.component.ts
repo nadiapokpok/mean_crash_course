@@ -31,10 +31,14 @@ export class CreateComponent implements OnInit {
   ngOnInit() {}
 
   addIssue(title, responsible, file, description, severity, status) {
-    console.log(file._files[0])
-    this.fileUploadService.addIssue(title, responsible, file._files[0],
-       description, severity, status).subscribe(() => {
-      this.router.navigate(['/list']);
+
+    if (file)
+      file = file._files[0];
+    
+    this.fileUploadService.addIssue(title, responsible, file,
+       description, severity, status).subscribe((issues) => {
+     console.log(issues)
+       this.router.navigate(['/list']);
     });
   }
 
@@ -51,34 +55,6 @@ export class CreateComponent implements OnInit {
       this.preview = reader.result as string;
     }
     reader.readAsDataURL(file)
-  }
-
-  submitForm() {
-    this.fileUploadService.addIssue(
-      this.createForm.value.name,
-      this.createForm.value.responsible,
-      this.createForm.value.file,
-      this.createForm.value.description,
-      this.createForm.value.severity,
-      this.createForm.value.status
-    ).subscribe((event: HttpEvent<any>) => {
-      switch (event.type) {
-        case HttpEventType.Sent:
-          console.log('Request has been made!');
-          break;
-        case HttpEventType.ResponseHeader:
-          console.log('Response header has been received!');
-          break;
-        case HttpEventType.UploadProgress:
-          this.percentDone = Math.round(event.loaded / event.total * 100);
-          console.log(`Uploaded! ${this.percentDone}%`);
-          break;
-        case HttpEventType.Response:
-          console.log('User successfully created!', event.body);
-          this.percentDone = false;
-          this.router.navigate(['/list'])
-      }
-    })
   }
 
 }
