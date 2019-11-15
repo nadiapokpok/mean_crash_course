@@ -73,33 +73,29 @@ router.route ('/issues/add').post (upload.single ('file'), (req, res) => {
 });
 router
   .route ('/issues/update/:id')
-  .post (upload.single ('file'), (req, res) => {
-    Issue.findById (req.params.id, (err, issue, next) => {
-      let file = '';
-      if (req.file) {
-        file = req.file.filename;
-      }
-      if (!issue) {
-        return next (new ERROR ('Could not load document'));
-      } else {
-        
-        issue.title = req.body.title;
-        issue.responsible = req.body.responsible;
-        issue.file = file;
-        issue.description = req.body.description;
-        issue.severity = req.body.severity;
-        issue.status = req.body.status;
-        issue
-          .save ()
+  .post (upload.single('file'), (req, res) => {
+    console.log("img: ",req.file);
+    const updates = {
+      title: req.body.title,
+      responsible: req.body.responsible,
+      description: req.body.description,
+      severity: req.body.severity,
+      status: req.body.status,
+    }
+    if(req.file != null){
+      updates.file = req.file.filename;
+    }
+
+    Issue.findOneAndUpdate ({_id: req.params.id}, {$set: updates}, { new: true})
           .then (issue => {
             res.json('update done');
           })
           .catch (err => {
             res.status (400).send ('Update failed');
           });
-      }
-    });
-  });
+      })
+  
+
 
 router.route ('/issues/delete/:id').get ((req, res) => {
   Issue.findByIdAndRemove ({_id: req.params.id}, (err, issue) => {

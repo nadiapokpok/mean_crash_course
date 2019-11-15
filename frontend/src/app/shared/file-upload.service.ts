@@ -38,10 +38,7 @@ import { HttpHeaders, HttpErrorResponse, HttpClient } from '@angular/common/http
     formData.append("description", description);
     formData.append("severity", severity);
     formData.append("status", status);
-    return this.http.post<Issue>(`${this.uri}/issues/add`, formData, {
-      reportProgress: true,
-      observe: 'events'
-    })
+    return this.http.post<Issue>(`${this.uri}/issues/add`, formData)
   }
   // Error handling 
 errorMgmt(error: HttpErrorResponse) {

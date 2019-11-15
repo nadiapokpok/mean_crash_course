@@ -28,7 +28,6 @@ export class CreateComponent implements OnInit {
       severity: ['']
     });
   }
-  ngOnInit() {}
 
   addIssue(title, responsible, file, description, severity, status) {
 
@@ -37,9 +36,10 @@ export class CreateComponent implements OnInit {
     
     this.fileUploadService.addIssue(title, responsible, file,
        description, severity, status).subscribe((issues) => {
-     console.log(issues)
-       this.router.navigate(['/list']);
-    });
+       console.log("issues:",issues)
+        this.router.navigate(['/list'])
+
+    })
   }
 
   uploadFile(event) {
@@ -56,5 +56,6 @@ export class CreateComponent implements OnInit {
     }
     reader.readAsDataURL(file)
   }
+  ngOnInit() {}
 
 }

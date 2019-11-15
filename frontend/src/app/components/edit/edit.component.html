@@ -7,7 +7,7 @@
       </section>
       <mat-divider></mat-divider>
       <br>
-      <form [formGroup]="updateForm" class="edit-form">
+      <form [formGroup]="updateForm" class="edit-form" enctype="multipart/form-data">
           <mat-form-field class="field-full-width">
               <input matInput placeholder="Issue Id" formControlName="_id" #_id>
             </mat-form-field>
@@ -18,7 +18,7 @@
           <input matInput placeholder="Responsible" formControlName="responsible" #responsible>
         </mat-form-field>
         <mat-form-field>
-            <ngx-mat-file-input formControlName="file" placeholder="file" #file>
+            <ngx-mat-file-input formControlName="file" placeholder="truc" #file>
             </ngx-mat-file-input>
           </mat-form-field>
         <mat-form-field class="field-full-width">

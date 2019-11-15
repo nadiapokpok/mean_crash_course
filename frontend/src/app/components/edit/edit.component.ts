@@ -27,7 +27,7 @@ export class EditComponent implements OnInit {
       _id: '',
       title: '',
       responsible: '',
-      file:'',
+      file: File,
       description: '',
       severity: '',
       status: ''
@@ -50,7 +50,9 @@ export class EditComponent implements OnInit {
     });
   }
 
-  updateIssue(id,title, responsible, file, description, severity, status, ) {
+  updateIssue(id,title, responsible, file, description, severity, status) {
+    if (file)
+      file = file._files[0];
     this.fileUploadService.updateIssue(id, title, responsible, file,
       description, severity, status).subscribe(() => {
       this.snackBar.open('Issue updated successfully', 'OK', {
